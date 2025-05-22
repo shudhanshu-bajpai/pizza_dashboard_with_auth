@@ -1,0 +1,106 @@
+Frontend AI Engineer Assignment: Next.js Dashboard with 
+Google Authentication 
+Objective: 
+The goal of this assignment is to assess your ability to build a modern, 
+server-rendered web application using Next.js, implement secure authentication, 
+manage and display data effectively, and create a visually appealing user interface. 
+You will also demonstrate your proficiency with Git and deployment platforms. 
+Timeline: 3 Days from the date of receiving this assignment. 
+Submission Link: https://tally.so/r/waoX4X 
+Project Requirements: 
+You are tasked with building a simple dashboard application with the following 
+features: 
+1. Technology Stack: 
+Framework: Next.js (latest stable version) 
+Styling: Tailwind CSS (or another CSS framework/library of your choice, but demonstrate good 
+UI/UX principles). 
+Authentication: NextAuth.js (or a similar library) for Google OAuth. 
+Deployment: Vercel or Railway. 
+2. Authentication: 
+Signup/Signin: Implement Google OAuth for user authentication. 
+Users should be able to sign up or sign in using their Google accounts. 
+Appropriate loading states and error handling should be implemented during the 
+authentication process. 
+Protected Routes: The dashboard pages (Hello User & Pizza Orders) should only be 
+accessible to authenticated users. Unauthenticated users attempting to access these pages 
+should be redirected to the login page. 
+Logout: Provide a clear way for users to log out. 
+3. Dashboard Pages: 
+"Hello [User Name]" Page: 
+After successful login, the user should be redirected to a page that displays a welcome 
+message, like "Hello, [User's Google Name]!" 
+This page should be the default landing page post-authentication. 
+"Pizza Orders" Page: 
+Create a new page accessible via a navigation link (e.g., in a sidebar or header). 
+This page should display a table of mock pizza orders. 
+Table Columns: The table should include at least the following columns: 
+* Order ID (e.g., PZA001) 
+* Customer Name (e.g., John Doe) 
+* Pizza Type (e.g., Margherita, Pepperoni, Veggie Supreme) 
+* Quantity (e.g., 1, 2) 
+* Order Date (e.g., YYYY-MM-DD HH:MM) 
+* Status (e.g., Pending, Preparing, Out for Delivery, Delivered, Cancelled) - Use different visual 
+cues (colors/badges) for different statuses. 
+Data Source: You can use a simple hardcoded JSON array for the pizza order data within 
+your application. There's no need for a backend database for this assignment. 
+* UI/UX: 
+* The table should be responsive and easily readable on different screen sizes. 
+* Consider adding basic sorting functionality (e.g., by Order ID or Order Date) if time permits 
+(optional bonus). 
+* Consider adding basic filtering functionality (e.g., by Status) if time permits (optional bonus). 
+4. User Interface (UI) & User Experience (UX): 
+Beautiful UI: The application should be visually appealing, modern, and clean. Pay attention to 
+typography, spacing, color schemes, and overall layout. 
+Responsiveness: The application must be fully responsive and work well on desktop, tablet, 
+and mobile devices. 
+Navigation: Implement clear and intuitive navigation between pages. 
+Error Handling: Gracefully handle potential errors (e.g., authentication failures, invalid routes). 
+Loading States: Implement appropriate loading indicators for asynchronous operations (e.g., 
+during login, page transitions if data fetching were real). 
+5. Version Control & Deployment: 
+* Git Repository: 
+* Initialize a Git repository for your project. 
+* Make regular, meaningful commits. 
+* Host the repository publicly on GitHub (or GitLab/Bitbucket). 
+* Deployment: 
+* Deploy your application to either Vercel or Railway. 
+* Ensure the deployed application is functional and accessible via a public URL. 
+Submission Guidelines: 
+Please submit the following via the link provided above by the deadline: 
+1. Public Git Repository URL: A link to your public GitHub (or other) repository 
+containing the complete source code. Ensure the commit history is clean and 
+reflects your development process. 
+2. Live Application URL: A link to the deployed application on Vercel or Railway. 
+3. Brief README.md: In your repository's README.md file, include: 
+○ Your Name. 
+○ A brief overview of your project. 
+○ Instructions on how to set up and run the project locally (including 
+environment variable setup for Google OAuth credentials – DO NOT commit 
+your actual OAuth client secret to the repository; explain how to configure 
+it using environment variables). 
+○ Any assumptions made or challenges faced. 
+○ A list of any third-party libraries used beyond Next.js, NextAuth.js, and your 
+chosen styling solution. 
+Evaluation Criteria: 
+Your submission will be evaluated based on the following: 
+● Functionality: Does the application meet all the specified requirements? Are all 
+features working correctly? 
+● Code Quality: Is the code well-structured, clean, maintainable, and easy to 
+understand? Are Next.js best practices followed? 
+● UI/UX Design: Is the application visually appealing, intuitive, and responsive? 
+● Authentication Implementation: Is Google OAuth implemented correctly and 
+securely? 
+● Error Handling & Edge Cases: How well does the application handle errors and 
+unexpected situations? 
+● Version Control: Quality of commit messages and Git practices. 
+● Deployment: Successful deployment and accessibility of the live application. 
+● Documentation: Clarity and completeness of the README.md file. 
+Bonus Points (Optional): 
+● Implementing table sorting/filtering. 
+● Adding unit or integration tests. 
+● Creative and exceptional UI/UX design. 
+● Using TypeScript. 
+● Implementing a simple state management solution (e.g., Zustand, Jotai, or React 
+Context) if deemed necessary for your architecture. 
+Good luck! We look forward to seeing your submission. 
+If you have any clarifying questions, please don't hesitate to reach out. 
