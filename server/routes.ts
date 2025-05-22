@@ -3,7 +3,7 @@ import { createServer, type Server } from "http";
 import { storage } from "./storage";
 import session from "express-session";
 import passport from "passport";
-import { Strategy as LocalStrategy } from "passport-local";
+import { Strategy as GoogleStrategy } from "passport-google-oauth20";
 import { z } from "zod";
 import { insertUserSchema } from "@shared/schema";
 import MemoryStore from "memorystore";
@@ -31,40 +31,46 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.use(passport.initialize());
   app.use(passport.session());
 
-  // Demo user for testing
-  const demoUser = {
-    id: 999,
-    googleId: "demo-user-123",
-    name: "Demo User",
-    firstName: "Demo",
-    email: "demo@example.com",
-    avatar: "https://ui-avatars.com/api/?name=Demo+User&background=0D8ABC&color=fff",
-    createdAt: new Date()
-  };
-
-  // For demo: Create a user if it doesn't exist
-  storage.getUserByGoogleId(demoUser.googleId).then(user => {
-    if (!user) {
-      storage.createUser({
-        googleId: demoUser.googleId,
-        name: demoUser.name,
-        firstName: demoUser.firstName,
-        email: demoUser.email,
-        avatar: demoUser.avatar
-      });
-    }
-  });
-
-  // Simplified authentication for demo
-  app.post("/api/auth/demo-login", (req, res, next) => {
-    // Set the demo user in the session
-    req.login(demoUser, (err) => {
-      if (err) {
-        return next(err);
+  // Configure Google OAuth Strategy
+  passport.use(new GoogleStrategy({
+    clientID: process.env.GOOGLE_CLIENT_ID!,
+    clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
+    callbackURL: "/api/auth/google/callback"
+  },
+  async (accessToken, refreshToken, profile, done) => {
+    try {
+      // Check if user already exists
+      let user = await storage.getUserByGoogleId(profile.id);
+      
+      if (!user) {
+        // Create new user
+        user = await storage.createUser({
+          googleId: profile.id,
+          name: profile.displayName,
+          firstName: profile.name?.givenName || profile.displayName.split(' ')[0],
+          email: profile.emails?.[0]?.value || '',
+          avatar: profile.photos?.[0]?.value || ''
+        });
       }
-      return res.json({ user: demoUser });
-    });
-  });
+      
+      return done(null, user);
+    } catch (error) {
+      return done(error, undefined);
+    }
+  }));
+
+  // Google OAuth routes
+  app.get("/api/auth/google", passport.authenticate("google", {
+    scope: ["profile", "email"]
+  }));
+
+  app.get("/api/auth/google/callback", 
+    passport.authenticate("google", { failureRedirect: "/login" }),
+    (req, res) => {
+      // Successful authentication, redirect to dashboard
+      res.redirect("/welcome");
+    }
+  );
 
   // Serialize and deserialize user
   passport.serializeUser((user: any, done) => {
